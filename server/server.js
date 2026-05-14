@@ -27,4 +27,3 @@ wss.on("connection", ws => {
 })
 
 console.log("WebSocket server running on port 3000")
-console.log("Incoming posture data:", data)

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
 function App() {
-  const [message, setMessage] = useState("Waiting for posture data...");
+  const [message, setMessage] = useState(null);
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8080");
+    const socket = new WebSocket("ws://localhost:3000");
 
     socket.onopen = () => {
       console.log("Connected to WebSocket server");
@@ -13,7 +13,11 @@ function App() {
     };
 
     socket.onmessage = (event) => {
-      setMessage(event.data);
+      try {
+        setMessage(JSON.parse(event.data));
+      } catch {
+        setMessage({ raw: event.data });
+      }
     };
 
     socket.onclose = () => {
@@ -48,7 +52,7 @@ function App() {
           fontFamily: "monospace",
         }}
       >
-        {message}
+        {message ? JSON.stringify(message, null, 2) : "Waiting for posture data..."}
       </div>
 
       <hr style={{ margin: "30px 0" }} />

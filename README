@@ -1,8 +1,0 @@
-Run node.js - cd into server
-`node server.js`
-run on port 3000
-
-Run react - cd into dashboard
-`npm start`
-
-run on port 3001
